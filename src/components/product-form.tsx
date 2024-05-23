@@ -20,6 +20,7 @@ import { ProductSchema } from "@/types/zod-schemas";
 import ErrorMessage from "./error-message";
 import {z } from 'zod'
 import { Product } from "@/types";
+import toast from "react-hot-toast";
 
 export default function ProductForm({open, setOpen, product}: {open: boolean, setOpen: (value: boolean) => void, product?: Product} ){
 
@@ -45,11 +46,14 @@ export default function ProductForm({open, setOpen, product}: {open: boolean, se
         
         try {   
             const res = product?.id ? await updateProduct(data, product?.id) : await addProduct(data)
+            if(!res.success) return toast.error(res.message || 'Something went wrong, try again later.')
             if(res?.success){
+              reset()
               setOpen(false)
+              toast.success(res.message)
             }
         } catch (error) {
-            alert('something went wrong, try again later!')
+            toast.error('something went wrong, try again later!')
         }
     }
   
@@ -103,7 +107,7 @@ export default function ProductForm({open, setOpen, product}: {open: boolean, se
               render={({ field }) => (
                 <FormControl>
                   <FormLabel>Code</FormLabel>
-                  <Input {...field} autoFocus  disabled={!!product?.id} />
+                  <Input placeholder="must be short & unique" {...field} autoFocus  disabled={!!product?.id} />
                   <ErrorMessage error={errors.code?.message} />
                 </FormControl>
               )}

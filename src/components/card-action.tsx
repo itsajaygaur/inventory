@@ -8,7 +8,7 @@ import EditProduct from "./edit-product";
 
 export default function CardAction({ product }: { product: Product }) {
   return (
-    <div className="ml-auto absolute right-2 top-2 flex gap-2">
+    <div className="ml-auto absolute right-2 top-2 flex">
       {/* <Button
         sx={{ borderRadius: "100%" }}
         className="!p-2"

@@ -1,10 +1,6 @@
 // "use client"
 import AddProduct from "@/components/add-product";
-import { instance } from "@/config/axios";
-import { Button, Card, Typography, Box, CardContent, Modal, ModalDialog, Stack, FormControl, Input, FormLabel, DialogContent, DialogTitle } from "@mui/joy";
-import { revalidatePath } from "next/cache";
-import DeleteIcon from '@mui/icons-material/Delete';
-import EditIcon from '@mui/icons-material/Edit';
+import { Card, Typography, Box, CardContent, Modal, ModalDialog, Stack, FormControl, Input, FormLabel, DialogContent, DialogTitle } from "@mui/joy";
 import { getProducts } from "./actions";
 import CardAction from "@/components/card-action";
 import { Product } from "@/types";
@@ -40,7 +36,10 @@ const products = await res.data
 
             <Typography level="h3" paddingTop={3}  >{product.name}</Typography>
             <CardContent>
-            <Typography level="title-md" > <span className="font-normal" >Price:</span> ${product.price}</Typography>
+            <Typography level="title-md" > <span className="font-normal" >Price:</span> ₹{product.price}</Typography>
+            <Typography level="title-md" > <span className="font-normal" >Brand:</span> {product.brand.name}</Typography>
+            <Typography level="title-md" > <span className="font-normal" >Category:</span> {product.product_category.name}</Typography>
+            <Typography level="title-md" > <span className="font-normal" >Stock:</span> {product.minimum_stock}</Typography>
             </CardContent>
           </Card>
         ))

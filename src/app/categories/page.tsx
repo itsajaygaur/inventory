@@ -1,10 +1,8 @@
-import { instance } from "@/config/axios"
-import { Button, Input, Sheet, Stack } from "@mui/joy"
+import { Sheet, Stack } from "@mui/joy"
 import Typography  from "@mui/joy/Typography"
-import { revalidatePath } from "next/cache"
-import DeleteIcon from '@mui/icons-material/Delete';
-import { Add } from "@mui/icons-material";
-import { addCategory, getCategories } from "@/app/actions";
+import {getCategories} from "@/app/actions";
+import CategoryForm from "@/components/category-form";
+import DeleteCategory from "@/components/delete-category";
 
 export default async function CategoryPage(){
 
@@ -14,31 +12,21 @@ export default async function CategoryPage(){
 
     // console.log('categories', categories)
 
+
     return(
         <section > 
         <Typography level="h1" className="!mb-10" >Categories</Typography>
 
-            <form 
-                className="flex gap-2 mb-10"
-                action={addCategory}>
-                <Input className="w-full" placeholder="Add Category" type="text" name="category" required />
-                <Button type="submit" > <Add style={{marginRight: '5px'}} /> Add</Button>
-            </form>
+            <CategoryForm />
 
             <Stack spacing={2} >
 
 
             {
-                categories.map((category: any) => (
+                categories.map((category: {id: number, name: string}) => (
                     <Sheet variant="soft" className="p-3 rounded-md flex justify-between items-center" key={category.id} >
                         <Typography level="h4" > {category.name} </Typography>
-                        <form action={async () => {
-                            "use server"
-                            await instance.delete(`/product-categories/${category.id}`)
-                            revalidatePath('/categories')
-                        }}>
-                        <Button type="submit" className="!p-2" variant="soft" color="danger" > <DeleteIcon /> </Button> 
-                        </form>
+                        <DeleteCategory category={category} />
                     </Sheet>
                     
                 ))

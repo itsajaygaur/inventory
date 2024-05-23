@@ -15,8 +15,8 @@ export default function AddProduct() {
   return (
     <>
       <Button
-        variant="outlined"
-        color="neutral"
+        // variant="outlined"
+        // color="neutral"
         startDecorator={<Add />}
         onClick={() => setOpen(true)}
       >
