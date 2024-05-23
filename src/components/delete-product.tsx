@@ -1,26 +1,23 @@
 "use client";
+
 import { useState } from "react";
-import { deleteCategory } from "@/app/actions";
-import { Button} from "@mui/joy";
-import toast from "react-hot-toast";
+import { Box, Button, Modal, ModalDialog, Stack, Typography } from "@mui/joy";
 import DeleteIcon from "@mui/icons-material/Delete";
+import { Product } from "@/types";
+import { deleteProduct } from "@/app/actions";
+import toast from "react-hot-toast";
 import DeleteModal from "./delete-modal";
 
-export default function DeleteCategory({
-  category,
-}: {
-  category: { id: number; name: string };
-}) {
+export default function DeleteProduct({ product }: { product: Product }) {
   const [open, setOpen] = useState(false);
 
   async function handleDelete() {
     try {
-      const res = await deleteCategory(category.id);
+      const res = await deleteProduct(product.id);
       if (!res.success) {
         toast.error(res?.message || "Something went wrong!");
         return;
       }
-
       toast.success(res.message);
       setOpen(false);
     } catch (error) {
@@ -31,8 +28,10 @@ export default function DeleteCategory({
   return (
     <>
       <Button
+        sx={{ borderRadius: "100%" }}
+        type="submit"
         className="!p-2"
-        variant="soft"
+        variant="plain"
         color="danger"
         onClick={() => setOpen(true)}
       >
@@ -44,6 +43,7 @@ export default function DeleteCategory({
         onClose={() => setOpen(false)}
         onDelete={handleDelete}
       />
+
     </>
   );
 }

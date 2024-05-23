@@ -10,8 +10,6 @@ export default async function CategoryPage(){
     if(!res.success) return <p className="text-center mt-6" >Oops, something went wrong!</p>
     const categories = res.data
 
-    // console.log('categories', categories)
-
 
     return(
         <section > 

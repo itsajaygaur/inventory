@@ -1,6 +1,5 @@
 "use client";
 import { addProduct, getBrands, getCategories, updateProduct } from "@/app/actions";
-import { Add } from "@mui/icons-material";
 import {
   Button,
   Typography,
@@ -9,12 +8,11 @@ import {
   FormControl,
   Input,
   FormLabel,
-  Drawer,
   Select,
   Option,
 } from "@mui/joy";
 import { useEffect, useState } from "react";
-import { useForm, Controller, SubmitHandler } from "react-hook-form";
+import { useForm, Controller} from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ProductSchema } from "@/types/zod-schemas";
 import ErrorMessage from "./error-message";
@@ -72,23 +70,18 @@ export default function ProductForm({open, setOpen, product}: {open: boolean, se
         fetchCategories();
         fetchBrands();
       }
-    }, [open]);
-  
-    useEffect(() => {
 
-        if(!product) return
-
+      if(product){
         setValue('code', product.code)
         setValue('name', product.name)
         setValue('price', product.price)
         setValue('brand', JSON.stringify(product.brand.id))
         setValue('product_category', JSON.stringify(product.product_category.id))
         setValue('minimum_stock', JSON.stringify(product.minimum_stock))
+      }
 
-    //   if(product){
-    //     reset(product)
-    //   }
-    }, [product])
+    }, [open, product]);
+  
 
 
     return(

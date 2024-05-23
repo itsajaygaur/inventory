@@ -2,19 +2,8 @@
 import { Stack } from "@mui/joy";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { navItems } from "@/constant/data";
 
-const navItems = [
-    {
-        id: 1,
-        title: 'Products',
-        path: '/'
-    },
-    {
-        id: 2,
-        title: 'Categories',
-        path: '/categories'
-    },
-]
 
 export default function Navbar(){
 const path = usePathname()
