@@ -20,10 +20,8 @@ export default function Category(){
 
     async function submitData(data: z.infer<typeof CategorySchema>){
         try {
-            console.log('data => ', data)
             const res = await addCategory(data)
             if(!res.success) return toast.error(res.message || "Something went wrong!")
-            // alert(res.message)
             toast.success(res.message)
             reset()
         } catch (error) {

@@ -56,13 +56,23 @@ export async function deleteCategory(id: number){
         await instance.delete(`/product-categories/${id}`)
         revalidatePath('/')
         return {success: true, message: 'Category deleted successfully'}
-
-
         
     } catch (error) {
         return {success: false, message: 'Something went wrong!'}
     }
 }
+
+
+export async function deleteProduct(id: number){
+    try {
+        await instance.delete(`/products/${id}`)
+        revalidatePath('/')
+        return {success: true, message: 'Product deleted successfully'}
+
+    } catch (error) {
+        return {success: false, message: 'Something went wrong!'}
+    }
+} 
 
 export async function addProduct(data: z.infer<typeof ProductSchema>){
 
@@ -81,10 +91,8 @@ export async function addProduct(data: z.infer<typeof ProductSchema>){
 
 export async function updateProduct(product: ProductForm, id: number){
     try {
-        console.log('id ', id)
-        await delete product.code
+        delete product.code
         product.id = id
-        console.log('product ', product)
         const res = await instance.put(`/products/${id}`, {...product})
         const result = res.data
         if(result?.status_message !== "OK") return {success: false, message: "Failed to add product"}
